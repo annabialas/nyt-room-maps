@@ -74,16 +74,23 @@ const CreateApplication = exports = module.exports = class {
 	 */
 	createMaps ( rooms ) {
 		var that = this;
+		// Loop through rooms
 		Object.keys( rooms ).forEach( function ( key, index ) {
+			// Get the coordinates for the current room
 			let coordinates = rooms[key]
+			// Get the room name
 			let room = key
+			// Set default map and text location
 			let map = '-west.png'
 			let location = [290, 76]
-			if ( key.slice(3, 4) === 'P' ) {
+			// Change map and text location for Podium rooms
+			if ( key.slice( 3, 4 ) === 'P' ) {
 				map = '-east.png'
 				location = [175, 50]
 			}
+			// Add full image map name
 			map = key.slice( 1, 2 ) + map
+			// Draw rooms
 			that.draw( room, coordinates, map, location )
 		} )
 	}
