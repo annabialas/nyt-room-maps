@@ -2,9 +2,9 @@
 
 This is a three-part project.
 
-1. [Maps](#Maps) — Creates images for every room
-2. [Server](#Server) — Hosts the images
-3. [Bot](#Bot) - Slack slash command that responds to room requests
+1. [Maps](#maps) — Creates images for every room
+2. [Server](#server) — Hosts the images
+3. [Bot](#bot) - Slack slash command that responds to room requests
 
 _Disclaimer: This project was built during a hack week. It is buggy. There are no plans for improvement or maintenance._
 
