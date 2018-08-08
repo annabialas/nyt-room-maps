@@ -1,0 +1,7 @@
+[submodule "server"]
+	path = server
+	url = git@github.com:yurivictor/nyt-room-maps-server.git
+
+[submodule "bot"]
+	path = bot
+	url = git@github.com:yurivictor/nyt-room-maps-bot.git
