@@ -44,22 +44,34 @@ const CreateApplication = exports = module.exports = class {
 	 */
 	draw ( room, coordinates, map, location ) {
 		var options = this.options;
+		// Load map image
 		PImage.decodePNGFromStream( fs.createReadStream( options.readPath + map ) ).then( ( img ) => {
+			// Load font
 			options.font.load( () => {
+				// Create a canvas
 				var canvas = PImage.make( 1584, 1224 )
 				var ctx = canvas.getContext( '2d' )
+				// Draw map image onto canvas
 				ctx.drawImage( img, 0, 0 )
+				// Create room
 				ctx.fillStyle = 'red'
 				ctx.fillRect( coordinates[0], coordinates[1], coordinates[2], coordinates[3] )
+				// Add room name
 				ctx.fillStyle = 'black';
 				ctx.font = "20px 'Source Sans Pro'";
 				ctx.fillText( room, location[0], location[1] );
+				// Save map
 				PImage.encodePNGToStream( canvas, fs.createWriteStream( options.writePath + room + '.png' ) ).then( () => {
 					console.log( 'done writing ' + room )
 				} )
 			} )
 		} )
 	}
+	/**
+	 * Create maps
+	 *
+	 * @param {Object} room — the json list of rooms to create
+	 */
 	createMaps ( rooms ) {
 		var that = this;
 		Object.keys( rooms ).forEach( function ( key, index ) {
