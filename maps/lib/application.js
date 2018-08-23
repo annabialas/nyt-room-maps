@@ -41,15 +41,16 @@ const CreateApplication = exports = module.exports = class {
 	 * @param {Array} coordinates - the [x, y, l, w] coordinates
 	 * @param {String} map - the map floor image corresponding to the room
 	 * @param {String} location - where to add the text name of the room
+	 * @param {String} size - the size of the canvas to draw (changes based on handdrawn maps)
 	 */
-	draw ( room, coordinates, map, location ) {
+	draw ( room, coordinates, map, location, size ) {
 		var options = this.options;
 		// Load map image
 		PImage.decodePNGFromStream( fs.createReadStream( options.readPath + map ) ).then( ( img ) => {
 			// Load font
 			options.font.load( () => {
 				// Create a canvas
-				var canvas = PImage.make( 1584, 1224 )
+				var canvas = PImage.make( size[0], size[1] )
 				var ctx = canvas.getContext( '2d' )
 				// Draw map image onto canvas
 				ctx.drawImage( img, 0, 0 )
@@ -81,6 +82,7 @@ const CreateApplication = exports = module.exports = class {
 			// Get the room name
 			let room = key
 			// Set default map and text location
+			let size = [1584, 1224]
 			let map = '-west.png'
 			let location = [290, 76]
 			// Change map and text location for Podium rooms
@@ -88,10 +90,19 @@ const CreateApplication = exports = module.exports = class {
 				map = '-east.png'
 				location = [175, 50]
 			}
+			// Change size based on floors
+			let floor = parseInt( key.slice( 0, 2 ) )
+			if ( floor > 4 ) {
+				size = [2550, 1650]
+				location [2170, 1158]
+			}
 			// Add full image map name
 			map = key.slice( 1, 2 ) + map
+			if ( floor === 12) {
+				map = '12-west.png'
+			}
 			// Draw rooms
-			that.draw( room, coordinates, map, location )
+			that.draw( room, coordinates, map, location, size )
 		} )
 	}
 }
